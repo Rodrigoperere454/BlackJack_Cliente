@@ -84,10 +84,10 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             positionXJogador1 = 300;
             positionYJogador1 = 250;
 
-            positionXJogador2 = 100;
+            positionXJogador2 = 40;
             positionYJogador2 = 150;
 
-            positionXJogador3 = 500;
+            positionXJogador3 = 560;
             positionYJogador3 = 150;
 
         } else if (cartasJogador2.getId() == meuID) {
@@ -95,20 +95,20 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             positionXJogador2 = 300;
             positionYJogador2 = 250;
 
-            positionXJogador1 = 100;
+            positionXJogador1 = 40;
             positionYJogador1 = 150;
 
-            positionXJogador3 = 500;
+            positionXJogador3 = 560;
             positionYJogador3 = 150;
         } else {
             //this.janelaJogo.setJogador(cartasJogador3);
             positionXJogador3 = 300;
             positionYJogador3 = 250;
 
-            positionXJogador2 = 100;
+            positionXJogador2 = 40;
             positionYJogador2 = 150;
 
-            positionXJogador1 = 500;
+            positionXJogador1 = 560;
             positionYJogador1 = 150;
 
         }
@@ -211,5 +211,11 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
 
             this.janelaJogo.revalidate();
   
+    }
+
+    @Override
+    public void indicarPerdeu() throws RemoteException {
+        this.janelaJogo.indicarPerdeu();
+        this.janelaJogo.atualizarTurno(false);
     }
 }
