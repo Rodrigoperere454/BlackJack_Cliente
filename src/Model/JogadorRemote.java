@@ -73,82 +73,101 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
         int positionXJogador1 = 0;
         int positionYJogador1 = 0;
         String nomeUserMain = "";
-        
+
         int positionXJogador2 = 0;
         int positionYJogador2 = 0;
         String nomeUser2 = "";
-        
+
         int positionXJogador3 = 0;
         int positionYJogador3 = 0;
         String nomeUser3 = "";
-        
+
         int valorCartas = 0;
+        String minhasFichas = "";
         if (jogador1.getId() == meuID) {
             positionXJogador1 = 300;
             positionYJogador1 = 250;
             nomeUserMain = jogador1.getNome();
+            try {
+                minhasFichas = Integer.toString(jogador1.getNumeroFichas());
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
 
             positionXJogador2 = 40;
             positionYJogador2 = 150;
-            if(jogador2 != null){
+            if (jogador2 != null) {
                 nomeUser2 = jogador2.getNome();
             }
             positionXJogador3 = 560;
             positionYJogador3 = 150;
-            if(jogador3 != null){
+            if (jogador3 != null) {
                 nomeUser3 = jogador3.getNome();
             }
-            
-            for(int i = 0; i < jogador1.getCartas().size(); i++){
+
+            for (int i = 0; i < jogador1.getCartas().size(); i++) {
                 valorCartas += jogador1.getCartas().get(i).getValue();
             }
         } else if (jogador2.getId() == meuID) {
             positionXJogador2 = 300;
             positionYJogador2 = 250;
             nomeUserMain = jogador2.getNome();
+            try {
+                minhasFichas = Integer.toString(jogador2.getNumeroFichas());
+            } catch (Exception e) {
+                System.out.println(e);
+            }
             
+            
+
             positionXJogador1 = 40;
             positionYJogador1 = 150;
-            if(jogador1 != null){
+            if (jogador1 != null) {
                 nomeUser2 = jogador1.getNome();
             }
             positionXJogador3 = 560;
             positionYJogador3 = 150;
-            if(jogador3 != null){
+            if (jogador3 != null) {
                 nomeUser3 = jogador3.getNome();
             }
-            
-            for(int i = 0; i < jogador2.getCartas().size(); i++){
+
+            for (int i = 0; i < jogador2.getCartas().size(); i++) {
                 valorCartas += jogador2.getCartas().get(i).getValue();
             }
         } else {
             positionXJogador3 = 300;
             positionYJogador3 = 250;
             nomeUserMain = jogador3.getNome();
-
+            try {
+                minhasFichas = Integer.toString(jogador3.getNumeroFichas());
+            } catch (Exception e) {
+                System.out.println(e);
+            }
             positionXJogador2 = 40;
             positionYJogador2 = 150;
-            if(jogador2 != null){
+            if (jogador2 != null) {
                 nomeUser2 = jogador2.getNome();
             }
 
             positionXJogador1 = 560;
             positionYJogador1 = 150;
-            if(jogador1 != null){
+            if (jogador1 != null) {
                 nomeUser3 = jogador1.getNome();
             }
-            for(int i = 0; i < jogador3.getCartas().size(); i++){
+            for (int i = 0; i < jogador3.getCartas().size(); i++) {
                 valorCartas += jogador3.getCartas().get(i).getValue();
             }
         }
-        
+
         String valorCartasStr = "";
-        try{
+        try {
             valorCartasStr = Integer.toString(valorCartas);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         this.janelaJogo.nomesValoresJogadores(nomeUserMain, nomeUser2, nomeUser3, valorCartasStr);
+        this.janelaJogo.indicarFichas(minhasFichas);
 
         if (jogador1 != null) {
             for (int i = 0; i < jogador1.getCartas().size(); i++) {
@@ -235,24 +254,29 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
         this.janelaJogo.setJogadorID(id);
     }
 
-
     @Override
     public void receberTurno(int id, String nome) {
-            if (this.meuID == id) {
-                this.janelaJogo.atualizarTurno(true);
-            } else {
-                this.janelaJogo.atualizarTurno(false);
-            }
+        if (this.meuID == id) {
+            this.janelaJogo.atualizarTurno(true);
+        } else {
+            this.janelaJogo.atualizarTurno(false);
+        }
 
-            this.janelaJogo.indicarVez(nome);
+        this.janelaJogo.indicarVez(nome);
 
-            this.janelaJogo.revalidate();
-  
+        this.janelaJogo.revalidate();
+
     }
 
     @Override
     public void indicarPerdeu() throws RemoteException {
         this.janelaJogo.indicarPerdeu();
         this.janelaJogo.atualizarTurno(false);
+    }
+
+    @Override
+    public void meioRounda() throws RemoteException {
+        String meioRounda = "Espere a Rounda acabar";
+        this.janelaJogo.indicarMeioRounda(meioRounda);
     }
 }
