@@ -69,55 +69,92 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
     }
 
     @Override
-    public void atualizarJanelaJogo(Jogador cartasJogador1, Jogador cartasJogador2, Jogador cartasJogador3, List<Card> cartasDealer) {
+    public void atualizarJanelaJogo(Jogador jogador1, Jogador jogador2, Jogador jogador3, List<Card> cartasDealer) {
         int positionXJogador1 = 0;
         int positionYJogador1 = 0;
-
+        String nomeUserMain = "";
+        
         int positionXJogador2 = 0;
         int positionYJogador2 = 0;
-
+        String nomeUser2 = "";
+        
         int positionXJogador3 = 0;
         int positionYJogador3 = 0;
-
-        if (cartasJogador1.getId() == meuID) {
-            //this.janelaJogo.setJogador(cartasJogador1);
+        String nomeUser3 = "";
+        
+        int valorCartas = 0;
+        if (jogador1.getId() == meuID) {
             positionXJogador1 = 300;
             positionYJogador1 = 250;
+            nomeUserMain = jogador1.getNome();
 
             positionXJogador2 = 40;
             positionYJogador2 = 150;
-
+            if(jogador2 != null){
+                nomeUser2 = jogador2.getNome();
+            }
             positionXJogador3 = 560;
             positionYJogador3 = 150;
-
-        } else if (cartasJogador2.getId() == meuID) {
-            //this.janelaJogo.setJogador(cartasJogador2);
+            if(jogador3 != null){
+                nomeUser3 = jogador3.getNome();
+            }
+            
+            for(int i = 0; i < jogador1.getCartas().size(); i++){
+                valorCartas += jogador1.getCartas().get(i).getValue();
+            }
+        } else if (jogador2.getId() == meuID) {
             positionXJogador2 = 300;
             positionYJogador2 = 250;
-
+            nomeUserMain = jogador2.getNome();
+            
             positionXJogador1 = 40;
             positionYJogador1 = 150;
-
+            if(jogador1 != null){
+                nomeUser2 = jogador1.getNome();
+            }
             positionXJogador3 = 560;
             positionYJogador3 = 150;
+            if(jogador3 != null){
+                nomeUser3 = jogador3.getNome();
+            }
+            
+            for(int i = 0; i < jogador2.getCartas().size(); i++){
+                valorCartas += jogador2.getCartas().get(i).getValue();
+            }
         } else {
-            //this.janelaJogo.setJogador(cartasJogador3);
             positionXJogador3 = 300;
             positionYJogador3 = 250;
+            nomeUserMain = jogador3.getNome();
 
             positionXJogador2 = 40;
             positionYJogador2 = 150;
+            if(jogador2 != null){
+                nomeUser2 = jogador2.getNome();
+            }
 
             positionXJogador1 = 560;
             positionYJogador1 = 150;
-
+            if(jogador1 != null){
+                nomeUser3 = jogador1.getNome();
+            }
+            for(int i = 0; i < jogador3.getCartas().size(); i++){
+                valorCartas += jogador3.getCartas().get(i).getValue();
+            }
         }
+        
+        String valorCartasStr = "";
+        try{
+            valorCartasStr = Integer.toString(valorCartas);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        this.janelaJogo.nomesValoresJogadores(nomeUserMain, nomeUser2, nomeUser3, valorCartasStr);
 
-        if (cartasJogador1 != null) {
-            for (int i = 0; i < cartasJogador1.getCartas().size(); i++) {
+        if (jogador1 != null) {
+            for (int i = 0; i < jogador1.getCartas().size(); i++) {
                 CardLabel cardLabel1 = new CardLabel();
-                cardLabel1.setCardImage(cartasJogador1.getCartas().get(i).getName());
-                if (i != cartasJogador1.getCartas().size() - 1) {
+                cardLabel1.setCardImage(jogador1.getCartas().get(i).getName());
+                if (i != jogador1.getCartas().size() - 1) {
                     cardLabel1.setCardCovered(true);
                 } else {
                     cardLabel1.setCardCovered(false);
@@ -128,11 +165,11 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             }
         }
 
-        if (cartasJogador2 != null) {
-            for (int i = 0; i < cartasJogador2.getCartas().size(); i++) {
+        if (jogador2 != null) {
+            for (int i = 0; i < jogador2.getCartas().size(); i++) {
                 CardLabel cardLabel2 = new CardLabel();
-                cardLabel2.setCardImage(cartasJogador2.getCartas().get(i).getName());
-                if (i != cartasJogador2.getCartas().size() - 1) {
+                cardLabel2.setCardImage(jogador2.getCartas().get(i).getName());
+                if (i != jogador2.getCartas().size() - 1) {
                     cardLabel2.setCardCovered(true);
                 } else {
                     cardLabel2.setCardCovered(false);
@@ -143,11 +180,11 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             }
         }
 
-        if (cartasJogador3 != null) {
-            for (int i = 0; i < cartasJogador3.getCartas().size(); i++) {
+        if (jogador3 != null) {
+            for (int i = 0; i < jogador3.getCartas().size(); i++) {
                 CardLabel cardLabel3 = new CardLabel();
-                cardLabel3.setCardImage(cartasJogador3.getCartas().get(i).getName());
-                if (i != cartasJogador3.getCartas().size() - 1) {
+                cardLabel3.setCardImage(jogador3.getCartas().get(i).getName());
+                if (i != jogador3.getCartas().size() - 1) {
                     cardLabel3.setCardCovered(true);
                 } else {
                     cardLabel3.setCardCovered(false);

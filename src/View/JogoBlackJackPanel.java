@@ -45,8 +45,8 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
             return;
         }
 
-        coins_img.setText(String.valueOf(jogador.getNumeroFichas()));
-        name_label.setText("User: " + jogador.getNome());
+        /*coins_img.setText(String.valueOf(jogador.getNumeroFichas()));
+        name_label.setText("User: " + jogador.getNome());*/
         dealer_label.setText("Dealer");
 
         coins_img.setVisible(true);
@@ -81,6 +81,19 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         lose_label.setVisible(true);
         setComponentZOrder(lose_label, 0);
     }
+    
+    public void nomesValoresJogadores(String userPrincipal, String user2, String user3, String valorCartas){
+        name_label.setText("User: " + userPrincipal);
+        valorCartas_lb.setText(valorCartas);
+        
+        if(!user2.equalsIgnoreCase("")){
+            other_user_lb2.setText(user2);
+        }
+        
+        if(!user3.equalsIgnoreCase("")){
+            other_user_lb.setText(user3);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -94,6 +107,9 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         name_label = new javax.swing.JLabel();
         turn_label = new javax.swing.JLabel();
         lose_label = new javax.swing.JLabel();
+        other_user_lb = new javax.swing.JLabel();
+        other_user_lb2 = new javax.swing.JLabel();
+        valorCartas_lb = new javax.swing.JLabel();
         label_background = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
@@ -138,6 +154,24 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         lose_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lose_label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        other_user_lb.setBackground(new java.awt.Color(255, 255, 255));
+        other_user_lb.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        other_user_lb.setForeground(new java.awt.Color(255, 255, 255));
+        other_user_lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        other_user_lb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        other_user_lb2.setBackground(new java.awt.Color(255, 255, 255));
+        other_user_lb2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        other_user_lb2.setForeground(new java.awt.Color(255, 255, 255));
+        other_user_lb2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        other_user_lb2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        valorCartas_lb.setBackground(new java.awt.Color(255, 255, 255));
+        valorCartas_lb.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        valorCartas_lb.setForeground(new java.awt.Color(255, 255, 255));
+        valorCartas_lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        valorCartas_lb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         label_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bj_table.jpg"))); // NOI18N
         label_background.addHierarchyListener(this::label_backgroundHierarchyChanged);
 
@@ -146,47 +180,44 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(330, 330, 330)
-                        .addComponent(dealer_label, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(390, 390, 390)
-                        .addComponent(stand_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(lose_label, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addComponent(hit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(600, 600, 600)
-                        .addComponent(coins_img))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(340, 340, 340)
-                        .addComponent(name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(label_background, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(237, 237, 237)
-                        .addComponent(turn_label, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
+                .addGap(330, 330, 330)
+                .addComponent(name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(270, 270, 270)
+                .addComponent(hit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(600, 600, 600)
+                .addComponent(coins_img))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(330, 330, 330)
+                .addComponent(dealer_label, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(390, 390, 390)
+                .addComponent(stand_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(230, 230, 230)
+                .addComponent(valorCartas_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(268, 268, 268)
+                .addComponent(lose_label, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(560, 560, 560)
+                .addComponent(other_user_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(237, 237, 237)
+                .addComponent(turn_label, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(other_user_lb2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(label_background))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(dealer_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(stand_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(286, 286, 286)
-                .addComponent(lose_label, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(170, 170, 170)
-                .addComponent(turn_label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(460, 460, 460)
+                .addComponent(name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(410, 410, 410)
                 .addComponent(hit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,11 +225,29 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
                 .addGap(370, 370, 370)
                 .addComponent(coins_img))
             .addGroup(layout.createSequentialGroup()
-                .addGap(460, 460, 460)
-                .addComponent(name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(dealer_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(410, 410, 410)
+                .addComponent(stand_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(300, 300, 300)
+                .addComponent(valorCartas_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(286, 286, 286)
+                .addComponent(lose_label, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(other_user_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(170, 170, 170)
+                .addComponent(turn_label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(other_user_lb2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(label_background, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(label_background, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -232,7 +281,10 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
     private javax.swing.JLabel label_background;
     private javax.swing.JLabel lose_label;
     private javax.swing.JLabel name_label;
+    private javax.swing.JLabel other_user_lb;
+    private javax.swing.JLabel other_user_lb2;
     private javax.swing.JButton stand_btn;
     private javax.swing.JLabel turn_label;
+    private javax.swing.JLabel valorCartas_lb;
     // End of variables declaration//GEN-END:variables
 }
