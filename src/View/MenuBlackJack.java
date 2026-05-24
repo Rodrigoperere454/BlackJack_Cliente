@@ -207,7 +207,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
         setContentPane(janelaJogo);//Troca o conteudo do JFrame principal
            revalidate();//Reorganiza o layout
            repaint();//Redesenhar a janela - importante
-           pack();// Ajusta o tamanho da janela automaticamenteee
+           pack();// Ajusta o tamanho da janela automaticamente
     }
     
     private void jogar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jogar_btnActionPerformed
