@@ -1,11 +1,14 @@
 package View;
 
 import Controller.InterfaceJogador;
+import Model.CardLabel;
 import Model.Jogador;
 import Model.JogadorRemote;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -14,6 +17,7 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
     private Jogador jogador;
     private InterfaceJogador objDealer;
     private int meuID;
+    private List<CardLabel> cartasNaMesa = new ArrayList<CardLabel>();
 
     public JogoBlackJackPanel(InterfaceJogador objDealer) {
         initComponents();
@@ -23,6 +27,8 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         coins_img.setVisible(false);
         turn_label.setVisible(false);
         lose_label.setVisible(false);
+        playAgain_btn.setVisible(false);
+        playAgain_btn.setEnabled(false);
 
     }
 
@@ -32,6 +38,28 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
 
     public Jogador getJogador() {
         return jogador;
+    }
+
+    public void adicionarCarta(CardLabel carta) {
+
+        cartasNaMesa.add(carta);
+
+        this.add(carta);
+        this.setComponentZOrder(carta, 0);
+    }
+
+    public void limparCartas() {
+
+        for (CardLabel c : cartasNaMesa) {
+            this.remove(c);
+        }
+
+        cartasNaMesa.clear();
+        this.playAgain_btn.setVisible(false);
+        this.lose_label.setVisible(false);
+        
+        repaint();
+        revalidate();
     }
 
     public void setJogador(Jogador jogador) {
@@ -50,7 +78,7 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         coins_img.setVisible(true);
         hit_btn.setVisible(true);
         stand_btn.setVisible(true);
-        
+
         hit_btn.setEnabled(false);
         stand_btn.setEnabled(false);
 
@@ -59,7 +87,7 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         setComponentZOrder(coins_img, 0);
         setComponentZOrder(dealer_label, 0);
         setComponentZOrder(name_label, 0);
-        
+
     }
 
     public void atualizarTurno(boolean isPlaying) {
@@ -73,36 +101,48 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         setComponentZOrder(turn_label, 0);
 
     }
-    
-    public void indicarMeioRounda(String aviso){
+
+    public void indicarMeioRounda(String aviso) {
         turn_label.setVisible(true);
         turn_label.setText(aviso);
+        valorCartasDealer_lb.setVisible(false);
         valorCartas_lb.setVisible(false);
         setComponentZOrder(turn_label, 0);
     }
-    
-    public void indicarPerdeu(){
-        lose_label.setText("BURST!");
+
+    public void indicarPerdeu() {
+        lose_label.setText("BUSTED!");
         lose_label.setVisible(true);
         setComponentZOrder(lose_label, 0);
     }
-    
-    public void indicarFichas(String numeroFichas){
+
+    public void indicarFichas(String numeroFichas) {
         coins_img.setText(numeroFichas);
         setComponentZOrder(coins_img, 0);
     }
-    
-    public void nomesValoresJogadores(String userPrincipal, String user2, String user3, String valorCartas){
+
+    public void nomesValoresJogadores(String userPrincipal, String user2, String user3, String valorCartas, String valorCartasDealer) {
         name_label.setText("User: " + userPrincipal);
+        valorCartasDealer_lb.setText(valorCartasDealer);
         valorCartas_lb.setText(valorCartas);
-        
-        if(!user2.equalsIgnoreCase("")){
+        setComponentZOrder(valorCartas_lb, 0);
+        setComponentZOrder(valorCartasDealer_lb, 0);
+
+        if (!user2.equalsIgnoreCase("")) {
             other_user_lb2.setText(user2);
         }
-        
-        if(!user3.equalsIgnoreCase("")){
+
+        if (!user3.equalsIgnoreCase("")) {
             other_user_lb.setText(user3);
         }
+    }
+
+    public void playAgain() {
+        this.playAgain_btn.setVisible(true);
+        this.playAgain_btn.setEnabled(true);
+        this.valorCartas_lb.setVisible(true);
+        this.valorCartasDealer_lb.setVisible(true);
+        setComponentZOrder(playAgain_btn, 0);
     }
 
     @SuppressWarnings("unchecked")
@@ -117,9 +157,11 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         lose_label = new javax.swing.JLabel();
         other_user_lb = new javax.swing.JLabel();
         other_user_lb2 = new javax.swing.JLabel();
-        valorCartas_lb = new javax.swing.JLabel();
+        valorCartasDealer_lb = new javax.swing.JLabel();
         hit_btn = new javax.swing.JButton();
         stand_btn = new javax.swing.JButton();
+        valorCartas_lb = new javax.swing.JLabel();
+        playAgain_btn = new javax.swing.JButton();
         label_background = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
@@ -165,11 +207,11 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         other_user_lb2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         other_user_lb2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        valorCartas_lb.setBackground(new java.awt.Color(255, 255, 255));
-        valorCartas_lb.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        valorCartas_lb.setForeground(new java.awt.Color(255, 255, 255));
-        valorCartas_lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        valorCartas_lb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        valorCartasDealer_lb.setBackground(new java.awt.Color(255, 255, 255));
+        valorCartasDealer_lb.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        valorCartasDealer_lb.setForeground(new java.awt.Color(255, 255, 255));
+        valorCartasDealer_lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        valorCartasDealer_lb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         hit_btn.setBackground(new java.awt.Color(46, 139, 87));
         hit_btn.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
@@ -184,6 +226,18 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         stand_btn.setText("Stand");
         stand_btn.addActionListener(this::stand_btnActionPerformed);
 
+        valorCartas_lb.setBackground(new java.awt.Color(255, 255, 255));
+        valorCartas_lb.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        valorCartas_lb.setForeground(new java.awt.Color(255, 255, 255));
+        valorCartas_lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        valorCartas_lb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        playAgain_btn.setBackground(new java.awt.Color(178, 34, 34));
+        playAgain_btn.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        playAgain_btn.setForeground(new java.awt.Color(255, 255, 255));
+        playAgain_btn.setText("Play Again");
+        playAgain_btn.addActionListener(this::playAgain_btnActionPerformed);
+
         label_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bj_table.jpg"))); // NOI18N
         label_background.addHierarchyListener(this::label_backgroundHierarchyChanged);
 
@@ -192,73 +246,85 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(330, 330, 330)
-                .addComponent(dealer_label, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(560, 560, 560)
-                .addComponent(other_user_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(hit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(230, 230, 230)
-                .addComponent(valorCartas_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(228, 228, 228)
-                .addComponent(turn_label, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(other_user_lb2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(valorCartasDealer_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(600, 600, 600)
                 .addComponent(coins_img))
             .addGroup(layout.createSequentialGroup()
-                .addGap(330, 330, 330)
-                .addComponent(name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(390, 390, 390)
-                .addComponent(stand_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(560, 560, 560)
+                .addComponent(other_user_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(268, 268, 268)
                 .addComponent(lose_label, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(other_user_lb2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(label_background))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(228, 228, 228)
+                .addComponent(turn_label, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(300, 300, 300)
+                .addComponent(playAgain_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(230, 230, 230)
+                .addComponent(valorCartas_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(330, 330, 330)
+                .addComponent(dealer_label, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(270, 270, 270)
+                .addComponent(hit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(390, 390, 390)
+                .addComponent(stand_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(330, 330, 330)
+                .addComponent(name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(dealer_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(other_user_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(hit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(valorCartas_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(170, 170, 170)
-                .addComponent(turn_label, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(other_user_lb2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(370, 370, 370)
+                .addGap(40, 40, 40)
+                .addComponent(valorCartasDealer_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(280, 280, 280)
                 .addComponent(coins_img))
             .addGroup(layout.createSequentialGroup()
-                .addGap(460, 460, 460)
-                .addComponent(name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(stand_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(110, 110, 110)
+                .addComponent(other_user_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(286, 286, 286)
                 .addComponent(lose_label, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(other_user_lb2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(label_background, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(170, 170, 170)
+                .addComponent(turn_label, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(playAgain_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(300, 300, 300)
+                .addComponent(valorCartas_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(dealer_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(410, 410, 410)
+                .addComponent(hit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(410, 410, 410)
+                .addComponent(stand_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(460, 460, 460)
+                .addComponent(name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -283,6 +349,16 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_hit_btnActionPerformed
 
+    private void playAgain_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAgain_btnActionPerformed
+        try {
+            this.objDealer.iniciarJogo();
+            this.playAgain_btn.setVisible(false);
+            this.playAgain_btn.setEnabled(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_playAgain_btnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel coins_img;
@@ -294,8 +370,10 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
     private javax.swing.JLabel name_label;
     private javax.swing.JLabel other_user_lb;
     private javax.swing.JLabel other_user_lb2;
+    private javax.swing.JButton playAgain_btn;
     private javax.swing.JButton stand_btn;
     private javax.swing.JLabel turn_label;
+    private javax.swing.JLabel valorCartasDealer_lb;
     private javax.swing.JLabel valorCartas_lb;
     // End of variables declaration//GEN-END:variables
 }
