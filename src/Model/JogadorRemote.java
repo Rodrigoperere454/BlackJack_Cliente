@@ -16,8 +16,6 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
     private JogoBlackJackPanel janelaJogo;
     private int meuID;
     
-    private List<CardLabel> cardLabels = new ArrayList<CardLabel>();
-
 
     public JogadorRemote(JogoBlackJackPanel janela) throws RemoteException {
         this.janelaJogo = janela;
@@ -55,7 +53,8 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
         int valorCartas = 0;
         int valorCartasDealer = 0;
         String minhasFichas = "";
-        if (jogador1.getId() == meuID) {
+        if (jogador1 != null && jogador1.getId() == meuID) {
+            this.janelaJogo.setJogador(jogador1);
             positionXJogador1 = 300;
             positionYJogador1 = 250;
             nomeUserMain = jogador1.getNome();
@@ -77,7 +76,8 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             }
 
             valorCartas = jogador1.getValorCartas();
-        } else if (jogador2.getId() == meuID) {
+        } else if (jogador2 != null && jogador2.getId() == meuID) {
+            this.janelaJogo.setJogador(jogador2);
             positionXJogador2 = 300;
             positionYJogador2 = 250;
             nomeUserMain = jogador2.getNome();
@@ -99,7 +99,8 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             }
 
             valorCartas = jogador2.getValorCartas();
-        } else {
+        } else if(jogador3 != null && jogador3.getId() == meuID){
+            this.janelaJogo.setJogador(jogador3);
             positionXJogador3 = 300;
             positionYJogador3 = 250;
             nomeUserMain = jogador3.getNome();
@@ -121,6 +122,29 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             }
 
             valorCartas = jogador3.getValorCartas();
+        }else{
+            positionXJogador1 = 300;
+            positionYJogador1 = 250;
+            
+            positionXJogador2 = 40;
+            positionYJogador2 = 150;
+            
+            positionXJogador3 = 560;
+            positionYJogador3 = 150;
+            
+            if(jogador1 != null){
+                nomeUserMain = jogador1.getNome();
+            }
+            
+            if (jogador2 != null) {
+                nomeUser2 = jogador2.getNome();
+            }
+  
+            if (jogador3 != null) {
+                nomeUser3 = jogador3.getNome();
+            }
+            
+            
         }
 
         String valorCartasStr = "";
@@ -158,11 +182,8 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
                 } else {
                     cardLabel1.setCardCovered(false);
                 }
-                cardLabels.add(cardLabel1);
                 cardLabel1.setLocation(positionXJogador1 + (i * 20), positionYJogador1);
                 this.janelaJogo.adicionarCarta(cardLabel1);
-                //this.janelaJogo.add(cardLabel1);
-                //this.janelaJogo.setComponentZOrder(cardLabel1, 0);
             }
         }
 
@@ -175,11 +196,8 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
                 } else {
                     cardLabel2.setCardCovered(false);
                 }
-                cardLabels.add(cardLabel2);
                 cardLabel2.setLocation(positionXJogador2 + (i * 20), positionYJogador2);
                 this.janelaJogo.adicionarCarta(cardLabel2);
-                //this.janelaJogo.add(cardLabel2);
-                //this.janelaJogo.setComponentZOrder(cardLabel2, 0);
             }
         }
 
@@ -192,11 +210,8 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
                 } else {
                     cardLabel3.setCardCovered(false);
                 }
-                cardLabels.add(cardLabel3);
                 cardLabel3.setLocation(positionXJogador3 + (i * 20), positionYJogador3);
                 this.janelaJogo.adicionarCarta(cardLabel3);
-                //this.janelaJogo.add(cardLabel3);
-                //this.janelaJogo.setComponentZOrder(cardLabel3, 0);
             }
         }
 
@@ -225,8 +240,6 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
                 }
                 cardLabel4.setLocation(positionXDealer + (i * 20), positionYDealer);
                 this.janelaJogo.adicionarCarta(cardLabel4);
-                //this.janelaJogo.add(cardLabel4);
-                //this.janelaJogo.setComponentZOrder(cardLabel4, 0);
             }
         }
 

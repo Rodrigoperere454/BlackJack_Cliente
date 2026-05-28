@@ -57,7 +57,10 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         cartasNaMesa.clear();
         this.playAgain_btn.setVisible(false);
         this.lose_label.setVisible(false);
-        
+        this.name_label.setText("");
+        this.other_user_lb.setText("");
+        this.other_user_lb2.setText("");
+
         repaint();
         revalidate();
     }
@@ -68,29 +71,30 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
             hit_btn.setVisible(false);
             stand_btn.setVisible(false);
             coins_img.setVisible(false);
-            name_label.setText("");
-            dealer_label.setText("");
-            return;
+            dealer_label.setText("Dealer");
+            this.
+            setComponentZOrder(dealer_label, 0);
+            setComponentZOrder(name_label, 0);
+        } else {
+            dealer_label.setText("Dealer");
+            coins_img.setVisible(true);
+            hit_btn.setVisible(true);
+            stand_btn.setVisible(true);
+
+
+            setComponentZOrder(hit_btn, 0);
+            setComponentZOrder(stand_btn, 0);
+            setComponentZOrder(coins_img, 0);
+            setComponentZOrder(dealer_label, 0);
+            setComponentZOrder(name_label, 0);
         }
-
-        dealer_label.setText("Dealer");
-
-        coins_img.setVisible(true);
-        hit_btn.setVisible(true);
-        stand_btn.setVisible(true);
-
-        hit_btn.setEnabled(false);
-        stand_btn.setEnabled(false);
-
-        setComponentZOrder(hit_btn, 0);
-        setComponentZOrder(stand_btn, 0);
-        setComponentZOrder(coins_img, 0);
-        setComponentZOrder(dealer_label, 0);
-        setComponentZOrder(name_label, 0);
 
     }
 
     public void atualizarTurno(boolean isPlaying) {
+        hit_btn.setVisible(true);
+        stand_btn.setVisible(true);
+        coins_img.setVisible(true);
         hit_btn.setEnabled(isPlaying);
         stand_btn.setEnabled(isPlaying);
     }
@@ -129,15 +133,19 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         setComponentZOrder(valorCartasDealer_lb, 0);
 
         if (!user2.equalsIgnoreCase("")) {
-            other_user_lb2.setText(user2);
+            other_user_lb2.setText("User: " + user2);
+            setComponentZOrder(other_user_lb2, 0);
         }
 
         if (!user3.equalsIgnoreCase("")) {
-            other_user_lb.setText(user3);
+            other_user_lb.setText("User: " + user3);
+            setComponentZOrder(other_user_lb, 0);
         }
     }
 
     public void playAgain() {
+        this.hit_btn.setEnabled(false);
+        this.stand_btn.setEnabled(false);
         this.playAgain_btn.setVisible(true);
         this.playAgain_btn.setEnabled(true);
         this.valorCartas_lb.setVisible(true);

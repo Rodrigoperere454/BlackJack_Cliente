@@ -56,6 +56,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
         jLabel1.setText("BlackJack");
 
         ip_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ip_textField.setText("localhost");
         ip_textField.setToolTipText("Digite o IP do servidor");
         ip_textField.addActionListener(this::ip_textFieldActionPerformed);
 
@@ -63,6 +64,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
         jLabel2.setText("IP");
 
         port_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        port_textField.setText("1099");
         port_textField.setToolTipText("Digite o porto do servidor");
         port_textField.addActionListener(this::port_textFieldActionPerformed);
 
@@ -204,10 +206,10 @@ public class MenuBlackJack extends javax.swing.JFrame {
  
     private void abrirJogo(Jogador jogador){
         janelaJogo.setJogador(jogador);
-        setContentPane(janelaJogo);//Troca o conteudo do JFrame principal
-           revalidate();//Reorganiza o layout
-           repaint();//Redesenhar a janela - importante
-           pack();// Ajusta o tamanho da janela automaticamente
+        setContentPane(janelaJogo);
+           revalidate();
+           repaint();
+           pack();
     }
     
     private void jogar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jogar_btnActionPerformed
@@ -219,7 +221,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
             try {
                 this.jogadorcb = new JogadorRemote(this.janelaJogo);
                 Jogador jogadorBlack = new Jogador(nome, this.jogadorcb);
-                
+                this.setTitle("BlackJack99 - " + jogadorBlack.getNome());
                 int respostaLogin = objJogador.login(jogadorBlack);
                 
                 if (respostaLogin == NOME_IGUAL){
