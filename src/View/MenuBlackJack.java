@@ -4,6 +4,7 @@ import View.JogoBlackJackPanel;
 import Model.JogadorRemote;
 import Model.Jogador;
 import Controller.InterfaceJogador;
+import java.awt.Image;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.ImageIcon;
@@ -23,13 +24,17 @@ public class MenuBlackJack extends javax.swing.JFrame {
 
     public MenuBlackJack() {
         initComponents();
-        ImageIcon logo = new ImageIcon(getClass().getResource("../Images/game.png"));
-        label_logo.setIcon(logo);
+        ImageIcon logoMenu = new ImageIcon(getClass().getResource("../Images/game.png"));
+        label_logo.setIcon(logoMenu);
         this.pack();
         jogar_btn.setEnabled(false);
         quit_btn.setEnabled(false);
-
         
+        this.setLocationRelativeTo(null);
+        
+        Image logoApp = new ImageIcon(getClass().getResource("../Images/game.png")).getImage();
+        setIconImage(logoApp);
+    
     }
 
     @SuppressWarnings("unchecked")
@@ -232,6 +237,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
                     abrirJogo(jogadorBlack);
                     this.objJogador.iniciarJogo();
                 }else if(respostaLogin == EM_RONDA){
+                     jogadorBlack.setIsEspectador(true);
                      JOptionPane.showMessageDialog(this, "Sucesso, Entrou como jogador, mas tem de esperar a ronda acabar", "Warning", JOptionPane.WARNING_MESSAGE);
                      abrirJogo(jogadorBlack);
                 }else if(respostaLogin == EM_ESP){

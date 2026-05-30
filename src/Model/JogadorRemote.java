@@ -258,6 +258,7 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
     public void receberTurno(int id, String nome) {
         if (this.meuID == id) {
             this.janelaJogo.atualizarTurno(true);
+            this.janelaJogo.iniciarTimer();
         } else {
             this.janelaJogo.atualizarTurno(false);
         }
@@ -282,6 +283,7 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
 
     @Override
     public void playAgain() throws RemoteException {
+        
         this.janelaJogo.playAgain();
     }
 }
