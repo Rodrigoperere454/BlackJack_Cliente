@@ -286,4 +286,9 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
         
         this.janelaJogo.playAgain();
     }
+
+    @Override
+    public void mensagem(String msg) throws RemoteException {
+        this.janelaJogo.apresentarMensagens(msg);
+    }
 }

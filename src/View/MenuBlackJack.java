@@ -15,6 +15,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
     private InterfaceJogador objJogador;
     private JogadorRemote jogadorcb;
     private JogoBlackJackPanel janelaJogo;
+    private Registry reg;
     
     final static int NOME_IGUAL = 0;
     final static int A_JOGAR = 1;
@@ -175,11 +176,11 @@ public class MenuBlackJack extends javax.swing.JFrame {
                 String host = ip_textField.getText();
                 port = Integer.parseInt(port_textField.getText());
 
-                Registry reg = LocateRegistry.getRegistry(host, port);
+                this.reg = LocateRegistry.getRegistry(host, port);
 
-                this.objJogador = (InterfaceJogador) reg.lookup("gestorBJ");
+                this.objJogador = (InterfaceJogador) this.reg.lookup("gestorBJ");
                 this.janelaJogo = new JogoBlackJackPanel(this.objJogador);
-                JOptionPane.showMessageDialog(this, "Conectado ao servidor com sucesso.", "Sucesso", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Conectado ao servidor com sucesso.", "Sucesso", JOptionPane.PLAIN_MESSAGE);
 
                 jogar_btn.setEnabled(true);
                 quit_btn.setEnabled(true);
@@ -197,7 +198,11 @@ public class MenuBlackJack extends javax.swing.JFrame {
         try {
             int confirm = JOptionPane.showConfirmDialog(this, "Desconectar do servidor?", "Sair", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-
+                this.reg = null;
+                this.objJogador = null;
+                this.jogar_btn.setEnabled(false);
+                this.quit_btn.setEnabled(false);
+                this.connect_btn.setEnabled(true);
             } else if (confirm == JOptionPane.NO_OPTION) {
                 setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
             }
@@ -233,16 +238,16 @@ public class MenuBlackJack extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Já existe um jogador com esse nome.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }else if(respostaLogin == A_JOGAR){
                     jogadorBlack.setIsEspectador(false);
-                    JOptionPane.showMessageDialog(this, "Sucesso, Entrou como jogador.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sucesso, Entrou como jogador.", "Warning", JOptionPane.PLAIN_MESSAGE);
                     abrirJogo(jogadorBlack);
                     this.objJogador.iniciarJogo();
                 }else if(respostaLogin == EM_RONDA){
                      jogadorBlack.setIsEspectador(true);
-                     JOptionPane.showMessageDialog(this, "Sucesso, Entrou como jogador, mas tem de esperar a ronda acabar", "Warning", JOptionPane.WARNING_MESSAGE);
+                     JOptionPane.showMessageDialog(this, "Sucesso, Entrou como jogador, mas tem de esperar a ronda acabar", "Warning", JOptionPane.PLAIN_MESSAGE);
                      abrirJogo(jogadorBlack);
                 }else if(respostaLogin == EM_ESP){
                     jogadorBlack.setIsEspectador(true);
-                    JOptionPane.showMessageDialog(this, "Entrou como espectador.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Entrou como espectador.", "Warning", JOptionPane.PLAIN_MESSAGE);
                     abrirJogo(jogadorBlack);
 
                 }
