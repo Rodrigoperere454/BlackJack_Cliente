@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -15,7 +16,6 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
 
     private JogoBlackJackPanel janelaJogo;
     private int meuID;
-    
 
     public JogadorRemote(JogoBlackJackPanel janela) throws RemoteException {
         this.janelaJogo = janela;
@@ -29,14 +29,13 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
         this.janelaJogo = janelaJogo;
     }
 
-  
     @Override
-    public void limparCardLabels(){
+    public void limparCardLabels() {
         this.janelaJogo.limparCartas();
     }
 
     @Override
-    public void atualizarJanelaJogo(Jogador jogador1, Jogador jogador2, Jogador jogador3, List<Card> cartasDealer) {
+    public void atualizarJanelaJogo(Jogador jogador1, Jogador jogador2, Jogador jogador3, List<Card> cartasDealer, Queue<Jogador> espetadores) {
 
         int positionXJogador1 = 0;
         int positionYJogador1 = 0;
@@ -99,7 +98,7 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             }
 
             valorCartas = jogador2.getValorCartas();
-        } else if(jogador3 != null && jogador3.getId() == meuID){
+        } else if (jogador3 != null && jogador3.getId() == meuID) {
             this.janelaJogo.setJogador(jogador3);
             positionXJogador3 = 300;
             positionYJogador3 = 250;
@@ -122,30 +121,31 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
             }
 
             valorCartas = jogador3.getValorCartas();
-        }else{
+        } else {
             positionXJogador1 = 300;
             positionYJogador1 = 250;
-            
+
             positionXJogador2 = 40;
             positionYJogador2 = 150;
-            
+
             positionXJogador3 = 560;
             positionYJogador3 = 150;
-            
-            if(jogador1 != null){
+
+            if (jogador1 != null) {
                 nomeUserMain = jogador1.getNome();
             }
-            
+
             if (jogador2 != null) {
                 nomeUser2 = jogador2.getNome();
             }
-  
+
             if (jogador3 != null) {
                 nomeUser3 = jogador3.getNome();
             }
-            
-            
+
         }
+
+        this.janelaJogo.guardarEspetadores(espetadores);
 
         String valorCartasStr = "";
         try {
@@ -282,13 +282,17 @@ public class JogadorRemote extends UnicastRemoteObject implements InterfaceJogad
     }
 
     @Override
-    public void playAgain() throws RemoteException {
-        
-        this.janelaJogo.playAgain();
+    public void resultsFinal(String msg) throws RemoteException {
+        this.janelaJogo.apresentarResults(msg);
     }
 
     @Override
     public void mensagem(String msg) throws RemoteException {
         this.janelaJogo.apresentarMensagens(msg);
+    }
+
+    @Override
+    public void toEspetador(Jogador jogador) throws RemoteException {
+        this.janelaJogo.setJogador(jogador);
     }
 }

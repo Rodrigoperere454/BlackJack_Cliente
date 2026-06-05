@@ -35,6 +35,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
         
         Image logoApp = new ImageIcon(getClass().getResource("../Images/game.png")).getImage();
         setIconImage(logoApp);
+        
     
     }
 
@@ -57,9 +58,13 @@ public class MenuBlackJack extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("BlackJack99");
+        setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel1.setText("BlackJack");
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
         ip_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ip_textField.setText("localhost");
@@ -77,16 +82,31 @@ public class MenuBlackJack extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Port");
 
+        connect_btn.setBackground(new java.awt.Color(46, 120, 87));
+        connect_btn.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        connect_btn.setForeground(new java.awt.Color(255, 255, 255));
         connect_btn.setText("Conectar");
+        connect_btn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         connect_btn.addActionListener(this::connect_btnActionPerformed);
+
+        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel4.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel4.setText("MENU");
 
+        quit_btn.setBackground(new java.awt.Color(46, 139, 87));
+        quit_btn.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        quit_btn.setForeground(new java.awt.Color(255, 255, 255));
         quit_btn.setText("QUIT");
+        quit_btn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         quit_btn.addActionListener(this::quit_btnActionPerformed);
 
+        jogar_btn.setBackground(new java.awt.Color(46, 139, 87));
+        jogar_btn.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        jogar_btn.setForeground(new java.awt.Color(255, 255, 255));
         jogar_btn.setText("JOGAR");
+        jogar_btn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jogar_btn.addActionListener(this::jogar_btnActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,7 +132,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
+                        .addGap(118, 118, 118)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(label_logo))
@@ -152,7 +172,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
                 .addComponent(jogar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(quit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
