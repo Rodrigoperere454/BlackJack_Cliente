@@ -14,6 +14,8 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
 
     final static int UNICO_MESA = 4;
     final static int SUCC = 9;
+    final static int IN_ROUND = 7;
+    final static int ERROR = 404;
 
     private Jogador jogador;
     private InterfaceJogador objDealer;
@@ -35,9 +37,7 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         result_label.setVisible(false);
         playAgain_btn.setVisible(false);
         playAgain_btn.setEnabled(false);
-        
-        
-        
+
     }
 
     public void setJogadorID(int id) {
@@ -78,7 +78,6 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
         this.jogador = jogador;
 
         if (jogador.isIsEspectador()) {
-            System.out.println(jogador.getNome() + " Espetador");
             hit_btn.setVisible(false);
             stand_btn.setVisible(false);
 
@@ -181,7 +180,7 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
     }
 
     public void nomesValoresJogadores(String userPrincipal, String user2, String user3, String valorCartas, String valorCartasDealer) {
-        if (this.jogador.isIsEspectador()) {
+        if (this.jogador != null && this.jogador.isIsEspectador()) {
             name_label.setText("User: " + userPrincipal);
             valorCartasDealer_lb.setVisible(false);
             valorCartas_lb.setVisible(false);
@@ -207,13 +206,13 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
     public void apresentarMensagens(String mensagem) {
         if (mensagem.contains("COMECOU")) {
             this.mensagens_AreaText.setText("");
-            int indexMensagem = mensagem.indexOf(":");
-            String msg = "Dealer -> " + mensagem.substring(indexMensagem + 1, mensagem.length()) + "\n";
+            int indexMensagem = mensagem.indexOf(";");
+            String msg = mensagem.substring(0, indexMensagem - 1) + mensagem.substring(indexMensagem + 9, mensagem.length()) + "\n";
             this.mensagens_AreaText.append(msg);
             return;
         }
 
-        String texto = "Dealer -> " + mensagem + "\n";
+        String texto = mensagem + "\n";
         this.mensagens_AreaText.append(texto);
     }
 
@@ -573,8 +572,12 @@ public class JogoBlackJackPanel extends javax.swing.JPanel {
                 }
                 if (respostaEspetador == UNICO_MESA) {
                     JOptionPane.showMessageDialog(this, "É o unico jogador na mesa.", "Passar Espetador", JOptionPane.PLAIN_MESSAGE);
+                } else if (respostaEspetador == IN_ROUND) {
+                    JOptionPane.showMessageDialog(this, "Só pode passar a espetador no fim da ronda.", "Passar Espetador", JOptionPane.WARNING_MESSAGE);
                 } else if (respostaEspetador == SUCC) {
                     JOptionPane.showMessageDialog(this, "Passou a espetador.", "Passar Espetador", JOptionPane.PLAIN_MESSAGE);
+                }else if(respostaEspetador == ERROR){
+                    JOptionPane.showMessageDialog(this, "Não foi possível passar a espetador.", "Passar Espetador", JOptionPane.ERROR_MESSAGE);
                 }
             } else if (confirm == JOptionPane.NO_OPTION) {
             }
