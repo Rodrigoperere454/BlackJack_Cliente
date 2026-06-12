@@ -32,6 +32,7 @@ public class MenuBlackJack extends javax.swing.JFrame {
         quit_btn.setEnabled(false);
         
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         
         Image logoApp = new ImageIcon(getClass().getResource("../Images/game.png")).getImage();
         setIconImage(logoApp);
